@@ -5,9 +5,6 @@ ENV KC_METRICS_ENABLED=true
 ENV KC_FEATURES=token-exchange
 ENV KC_DB=mysql
 # Install custom providers
-# RUN curl -sL https://github.com/aerogear/keycloak-metrics-spi/releases/download/2.5.3/keycloak-metrics-spi-2.5.3.jar -o
-# /opt/keycloak/providers/keycloak-metrics-spi-2.5.3.jar
-
 COPY Astar-keycloak-theme-0.0.1.jar /opt/keycloak/providers/Astar-keycloak-theme-0.0.1.jar
 
 RUN /opt/keycloak/bin/kc.sh build

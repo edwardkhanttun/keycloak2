@@ -1,0 +1,6 @@
+{
+    "themes": [{
+        "name" : "astar",
+        "types": ["login", "account", "email"]
+    }]
+}
