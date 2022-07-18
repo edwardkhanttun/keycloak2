@@ -28,37 +28,26 @@ keycloak-db-mysql-0         1/1     Running   2 (29h ago)    2d1h
 ### Step 4: Deploy Mysql client pod to connect to Mysql database
 
 ```
-kubectl -n keycloak run mysql-client --image=mysql
-```
-
-### Step 5: Verify that the pod mysql-client is in running status.
-
-```
-mctadmin@st-mct-osme:~$ kubectl -n keycloak get pods
-NAME                        READY   STATUS    RESTARTS       AGE
-mysql-client                1/1     Running   1 (2d1h ago)   2d1h
-keycloak-db-mysql-0         1/1     Running   2 (29h ago)    2d1h
-```
-
-### Step 6: Connect to Mysql database from the pod mysql-client
-
-```
-mctadmin@st-mct-osme:~$ kubectl -n keycloak exec -it mysql-client -- sh
+kubectl run mysql-client --image=mysql:5.7 -it --rm --restart=Never -- /bin/bash
+If you don't see a command prompt, try pressing enter.
 
 //The root password is set during Mysql helm chart deployment in Step 2
-sh-4.4# mysql -h keycloak-db-mysql -uroot -pastar
+bash-4.2# mysql -h keycloak-db-mysql -uroot -pastar
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 77
+Your MySQL connection id is 9284
 Server version: 8.0.29 Source distribution
 
 Copyright (c) 2000, 2022, Oracle and/or its affiliates.
 
 Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective owners.
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-### Step 7: Create keycloak database
+### Step 5: Create keycloak database
 
 ```
 mysql> create database keycloak;
@@ -95,11 +84,11 @@ c. Run the command "mvn clean package" to build the jar file.
 
 ![plot](./images/maven-build-jar-file.PNG)
 
-d. Copy keycloak.x\keycloak-astar-theme\keycloak-recipes\keycloakx-custom-theme\target\Astar-keycloak-theme-0.0.1.jar to the 
+d. Copy keycloak.x\keycloak-astar-theme\keycloak-recipes\keycloakx-custom-theme\target\Astar-keycloak-theme-0.0.1.jar to the
 directory keycloak.x\keycloak-astar-theme\keycloak-recipes\keycloakx-custom-image where a Dockerfile locates.
 
 ### Step 3: Build the customized docker image.
-a. Review the Dockerfile in the directory keycloak.x\keycloak-astar-theme\keycloak-recipes\keycloakx-custom-image to ensure 
+a. Review the Dockerfile in the directory keycloak.x\keycloak-astar-theme\keycloak-recipes\keycloakx-custom-image to ensure
 the hostname and database connection information is correct.
 
 ![plot](./images/dockerfile-review.png)
