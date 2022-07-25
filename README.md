@@ -28,7 +28,7 @@ keycloak-db-mysql-0         1/1     Running   2 (29h ago)    2d1h
 ### Step 4: Deploy Mysql client pod to connect to Mysql database
 
 ```
-kubectl run mysql-client --image=mysql:5.7 -it --rm --restart=Never -- /bin/bash
+kubectl run mysql-client --image=mysql:5.7 -n keycloak -it --rm --restart=Never -- /bin/bash
 If you don't see a command prompt, try pressing enter.
 
 //The root password is set during Mysql helm chart deployment in Step 2
