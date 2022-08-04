@@ -1,20 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
   name: keycloak
+  namespace: keycloak
   labels:
     service: keycloak
     layer: security
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/strip-path: "true"
 spec:
-  tls:
-    - hosts:
-      - dwaauth.mctplatform.click
-      secretName: dwaauth-mctplatform-secret
   rules:
-    - host: dwaauth.mctplatform.click
-      http:
+    - http:
         paths:
           - path: "/"
             pathType: Prefix
